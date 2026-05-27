@@ -1,25 +1,36 @@
 import { Injectable } from '@nestjs/common';
+import { createClient } from '@supabase/supabase-js';
 
 @Injectable()
 export class BusesService {
-  private mockBuses = [
-    { id: 1, name: "SLTB Express", route: "Colombo - Kandy", time: "08:30 AM", price: 1200, rating: 4.8, type: "Luxury" },
-    { id: 2, name: "Super Line", route: "Colombo - Galle", time: "09:45 AM", price: 1500, rating: 4.9, type: "Super Luxury" },
-    { id: 3, name: "NTC Private", route: "Colombo - Jaffna", time: "10:00 PM", price: 2500, rating: 4.5, type: "Super Luxury" },
-  ];
+  private supabase = createClient(
+    process.env.SUPABASE_URL || '',
+    process.env.SUPABASE_KEY || ''
+  );
 
-  searchBuses(from: string, to: string) {
-    if (!from || !to) return this.mockBuses;
-    return this.mockBuses.filter(b => b.route.includes(from) && b.route.includes(to));
+  async searchBuses(from: string, to: string) {
+    let query = this.supabase.from('buses').select('*');
+
+    if (from) query = query.eq('from_city', from);
+    if (to) query = query.eq('to_city', to);
+
+    const { data, error } = await query;
+    
+    if (error) {
+      console.error('Supabase Error:', error);
+      return [];
+    }
+
+    return data;
   }
 
-  // Placeholder for real SLTB API integration
-  async fetchSltbData() {
-    // try {
-    //   const response = await axios.get('https://api.sltb.lk/v1/schedules');
-    //   return response.data;
-    // } catch (e) {
-    //   return [];
-    // }
+  async createBooking(bookingData: any) {
+    const { data, error } = await this.supabase
+      .from('bookings')
+      .insert([bookingData])
+      .select();
+
+    if (error) throw error;
+    return data;
   }
 }
