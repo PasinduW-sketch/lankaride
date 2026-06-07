@@ -1,9 +1,10 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
+import Link from 'next/link';
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Bus, Clock, Star, MapPin, Zap, Music, Volume2, Film } from 'lucide-react';
+import { Bus, Clock, Star, MapPin, Zap, Music, Volume2, Film, LocateFixed } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { motion } from 'framer-motion';
 
@@ -111,10 +112,19 @@ export function BusList() {
                       </span>
                       <span className="text-[10px] text-slate-500 font-bold mt-1 uppercase italic">Only 4 seats left!</span>
                     </div>
-                    <Button size="lg" className="bg-blue-600 hover:bg-blue-700 w-full shadow-lg shadow-blue-900/20 group">
-                      Book Now
-                      <Bus className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </Button>
+                    <div className="flex gap-2 w-full">
+                      <Link href={`/bus/${bus.id}`} className="flex-1">
+                        <Button size="lg" className="bg-blue-600 hover:bg-blue-700 w-full shadow-lg shadow-blue-900/20 group">
+                          Book Now
+                          <Bus className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </Button>
+                      </Link>
+                      <Link href={`/track/${bus.id}`}>
+                        <Button size="icon" variant="outline" className="border-slate-700 hover:bg-slate-800 h-11 w-11">
+                          <LocateFixed className="w-4 h-4 text-slate-400" />
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
 
                 </div>

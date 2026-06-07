@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Bus, User, Globe, Music } from 'lucide-react';
+import { Bus, User, Globe, Music, LocateFixed } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 export default function Navbar() {
@@ -49,6 +49,9 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-8">
           <Link href="/" className="text-xs font-bold text-slate-400 hover:text-white transition-colors uppercase tracking-widest">Routes</Link>
+          <Link href="/track/1" className="text-xs font-bold text-slate-400 hover:text-white transition-colors uppercase tracking-widest flex items-center gap-1">
+            <LocateFixed className="w-3 h-3 text-green-400" /> Live Track
+          </Link>
           <Link href="/" className="text-xs font-bold text-slate-400 hover:text-white transition-colors uppercase tracking-widest">Schedules</Link>
           <button 
             onClick={playChunPaan}

@@ -1,9 +1,11 @@
 'use client';
 
+import Link from 'next/link';
 import { BusSearch } from "@/components/BusSearch";
 import { BusList } from "@/components/BusList";
+import { Badge } from "@/components/ui/badge";
 import { motion } from 'framer-motion';
-import { ShieldCheck, Zap, Heart } from 'lucide-react';
+import { ShieldCheck, Zap, Heart, LocateFixed } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -44,10 +46,14 @@ export default function Home() {
               <h2 className="text-3xl font-black">Daily Departures</h2>
               <p className="text-slate-500">Real-time availability for major routes</p>
             </div>
-            <div className="flex gap-4">
-              <Badge variant="outline" className="px-4 py-2 bg-slate-900 border-slate-800">Colombo-Kandy (01)</Badge>
-              <Badge variant="outline" className="px-4 py-2 bg-slate-900 border-slate-800">Colombo-Galle (EX-01)</Badge>
-            </div>
+                            <div className="flex gap-4">
+                              <Link href="/bus/1">
+                                <Badge variant="outline" className="px-4 py-2 bg-slate-900 border-slate-800 hover:border-blue-500/50 cursor-pointer transition-colors">Colombo-Kandy (01)</Badge>
+                              </Link>
+                              <Link href="/bus/2">
+                                <Badge variant="outline" className="px-4 py-2 bg-slate-900 border-slate-800 hover:border-blue-500/50 cursor-pointer transition-colors">Colombo-Galle (EX-01)</Badge>
+                              </Link>
+                            </div>
           </div>
           <BusList />
         </div>
