@@ -1,16 +1,76 @@
-# React + Vite
+# LankaRide 🚌
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern bus booking platform for Sri Lanka — built with Next.js (frontend) and NestJS (backend).
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **🔍 Bus Search** — Search intercity, expressway, and normal services by route
+- **🪑 Interactive Seat Map** — 40-seat layout with real-time availability (2+2 config)
+- **📍 Live Bus Tracking** — Real-time GPS simulation on a dark-themed Leaflet map
+- **🎟️ QR E-Tickets** — Booking confirmation with scannable QR codes
+- **🔐 Auth** — Supabase-based sign in / sign up
+- **💳 PayHere Payments** — Sandbox payment gateway integration
+- **📱 SMS Notifications** — Booking confirmations via Notify.lk
+- **🌐 Multi-language** — English / Sinhala / Tamil support
+- **🎵 Chun Paan Mode** — Easter egg audio player
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Layer      | Tech                                                   |
+| ---------- | ------------------------------------------------------ |
+| Frontend   | Next.js 16, React 19, TypeScript, Tailwind CSS 4       |
+| State      | Redux Toolkit, TanStack React Query                    |
+| UI         | shadcn/ui, Radix, Framer Motion, Lucide Icons          |
+| Maps       | Leaflet, react-leaflet                                 |
+| Backend    | NestJS 11                                              |
+| Database   | Supabase (PostgreSQL)                                  |
+| Payments   | PayHere                                                |
+| SMS        | Notify.lk                                              |
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+### Backend
+
+```bash
+cd backend
+npm install
+npm run start:dev
+```
+
+Requires `SUPABASE_URL`, `SUPABASE_KEY`, `PAYHERE_SECRET`, and `NOTIFY_API_KEY` env vars.
+
+## Pages
+
+| Route                  | Description                    |
+| ---------------------- | ------------------------------ |
+| `/`                    | Home — search & bus list       |
+| `/bus/[id]`            | Bus detail + seat selection    |
+| `/track/[id]`          | Live bus tracking on map       |
+| `/booking/confirm`     | Booking confirmation + QR code |
+
+## Project Structure
+
+```
+lankaride/
+├── frontend/          # Next.js app
+│   └── src/
+│       ├── app/       # Pages (Next App Router)
+│       ├── components/# UI components
+│       ├── hooks/     # Custom hooks (useBusTracking)
+│       └── lib/       # Store, slices, mock data
+├── backend/           # NestJS API
+│   └── src/
+│       ├── buses/     # Bus search & booking
+│       └── payments/  # PayHere webhook handler
+└── supabase-schema.sql
+```
